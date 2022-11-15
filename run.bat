@@ -8,7 +8,7 @@ if not defined VENV_DIR (set VENV_DIR=venv)
 
 set ERROR_REPORTING=FALSE
 
-set PYTHON="%~dp0%VENV_DIR%\Scripts\Python.exe"
+set PYTHON="python"
 
 set DTYPE=float32
 set CLIP_CONTEXTS=3
@@ -25,5 +25,5 @@ set VAE_PATH=models/animevae.pt
 set PENULTIMATE=1
 set PYTHONDONTWRITEBYTECODE=1
 
-%PYTHON% -m uvicorn --host 0.0.0.0 --port=6969 --workers 1 main:app
+%PYTHON% -m uvicorn --host 127.0.0.1 --port=80 --workers 1 main:app
 pause
