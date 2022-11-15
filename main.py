@@ -26,6 +26,7 @@ import threading
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 import json
+import torch
 
 genlock = threading.Lock()
 
@@ -129,6 +130,7 @@ class ErrorOutput(BaseModel):
     error: str
 
 def saveimage(image, request):
+    torch.cuda.empty_cache
     os.makedirs(config.savepath, exist_ok=True)
 
     if config.savetype == "default":

@@ -19,6 +19,8 @@ from PIL import Image
 import k_diffusion as K
 import contextlib
 import random
+from hydra_node import lowvram
+from . import vram
 
 def seed_everything(seed: int):
     torch.manual_seed(seed)
@@ -208,9 +210,20 @@ class StableDiffusionModel(nn.Module):
 
         if config.dtype == "float16":
             typex = torch.float16
+        elif config.dtype == "fixed":
+            typex = torch.fixed
         else:
             typex = torch.float32
-        self.model = model.to(config.device).to(typex)
+        
+        if vram.medvram:
+            lowvram.setup_for_low_vram(model, True)
+        elif vram.lowvram:
+            lowvram.setup_for_low_vram(model, False)
+        else:
+            model.to(config.device)
+        self.model = model.to(typex)
+        # self.model = model.to(config.device).to(typex)
+
         if self.config.vae_path:
             ckpt=torch.load(self.config.vae_path, map_location="cpu")
             loss = []
@@ -325,7 +338,7 @@ class StableDiffusionModel(nn.Module):
         return model
 
     @torch.no_grad()
-    @torch.autocast("cuda", enabled=True, dtype=torch.float16)
+    @torch.autocast("cuda", enabled=True, dtype=torch.float32 if vram.lowvram or vram.medvram else torch.float16)
     def sample(self, request):
         if request.module is not None:
             if request.module == "vanilla":
@@ -461,7 +474,7 @@ class StableDiffusionModel(nn.Module):
 
         images = []
         for samples in sampless:
-            with torch.autocast("cuda", enabled=False):
+            with torch.autocast("cuda", enabled=self.config.amp if vram.lowvram or vram.medvram else False):
                 x_samples_ddim = self.model.decode_first_stage(samples.float())
                 #x_samples_ddim = decode_image(samples, self.model.first_stage_model)
                 #x_samples_ddim = self.model.first_stage_model.decode(samples.float())

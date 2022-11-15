@@ -13,6 +13,7 @@ import traceback
 import zlib
 from pathlib import Path
 from ldm.modules.attention import CrossAttention, HyperLogic
+from . import vram
 
 model_map = {
     "stable-diffusion": StableDiffusionModel,
@@ -180,7 +181,8 @@ def init_config_model():
             #attach it to the model
             model.premodules = modules
 
-    lowvram.setup_for_low_vram(model.model, True)
+    if not (vram.lowvram or vram.medvram):
+        lowvram.setup_for_low_vram(model.model, True)
 
     config.model = model
 

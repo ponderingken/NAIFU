@@ -24,5 +24,9 @@ set PYTHONDONTWRITEBYTECODE=1
 :: set SAVE_TYPE=full
 :: set SAVE_PATH=
 
+:: If VRAM is smaller than 8GB, enable one or the other for LOWVRAM or MEDVRAM.
+:: set LOWVRAM=1
+:: set MEDVRAM=1
+
 %PYTHON% -m uvicorn --host 127.0.0.1 --port=80 --workers 1 main:app
 pause
