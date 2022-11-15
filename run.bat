@@ -19,5 +19,10 @@ set PYTHONDONTWRITEBYTECODE=1
 ::set MODULE_PATH=models/modules
 ::set PRIOR_PATH=models/vector_adjust_v2.pt
 
+:: Save type = [default] or [full]
+:: set SAVE_FILES=1
+:: set SAVE_TYPE=full
+:: set SAVE_PATH=
+
 %PYTHON% -m uvicorn --host 127.0.0.1 --port=80 --workers 1 main:app
 pause

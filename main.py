@@ -129,13 +129,69 @@ class ErrorOutput(BaseModel):
     error: str
 
 def saveimage(image, request):
-    os.makedirs("images", exist_ok=True)
+    os.makedirs(config.savepath, exist_ok=True)
 
+    if config.savetype == "default":
+        saveimagedefault(image, request)
+    elif config.savetype == "full":
+        saveimagefull(image, request)
+    else:
+        saveimagedefault(image, request)
+        print("ERROR : The specified save type value does not exist. Saving to default destination.")
+
+def saveimagefull(image, request):
+    def dup(path, ext):
+        for n in range(1000000):
+            suff = '.' + ext
+            if n:
+                suff = f'-{n}.' + ext
+            if not os.path.exists(path + suff):
+                break
+        return path + suff
+
+    def save(path, mode, data, txt):
+        try:
+            with open(path, mode) as f:
+                f.write(data)
+        except Exception as e:
+            print(txt, e)
+
+    imagespath = os.path.join(config.savepath, "images")
+    datapath = os.path.join(config.savepath, "data")
+
+    os.makedirs(imagespath, exist_ok=True)
+    os.makedirs(datapath, exist_ok=True)
+
+    id = str(hex(int(time.time() * 10 ** 6))).replace('0x', '').upper()
+
+    imagefilepath = dup(os.path.join(imagespath, id), 'png')
+    datafilepath = dup(os.path.join(datapath, id), 'txt')
+    dataimagepath = dup(os.path.join(datapath, id + '_i'), 'png')
+
+    data_i = request.image
+
+    data = '[request data]\n'
+    for key in request:
+        if key == "image" and data_i != None:
+            data += str(key) + "=\'" + os.path.basename(dataimagepath) + "\'\n"
+        else:
+            data += str(key) + "=\'" + str(request[key]) + "\'\n"
+
+    data += '\n[config data]\n'
+    for key in config:
+        if key != "model" and key != "logger":
+            data += str(key) + "=\'" + str(config[key]) + "\'\n"
+
+    save(imagefilepath, "wb", image, "failed to save image:")
+    save(datafilepath, "w" , data, "failed to save image data:")
+    if data_i != None: data_i.save(dataimagepath, quality=100, format="PNG")
+
+def saveimagedefault(image, request):
     filename = request.prompt.replace('masterpiece, best quality, ', '')
     filename = re.sub(r'[/\\<>:"|]', '', filename)
     filename = filename[:128]
     filename += f' s-{request.seed}'
-    filename = os.path.join("images", filename.strip())
+    filename = os.path.join(config.savepath, filename.strip())
 
     for n in range(1000000):
         suff = '.png'

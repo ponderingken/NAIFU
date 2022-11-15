@@ -79,6 +79,8 @@ def load_module(path, device):
 
 def init_config_model():
     config = DotMap()
+    config.savetype = os.getenv("SAVE_TYPE", "default")
+    config.savepath = os.getenv("SAVE_PATH", "images")
     config.savefiles = os.getenv("SAVE_FILES", False)
     config.dtype = os.getenv("DTYPE", "float16")
     config.device = os.getenv("DEVICE", "cuda")
