@@ -16337,7 +16337,7 @@
                                   message:
                                     "Error: Timeout - Unable to reach NovelAI servers. Please wait for a moment and try again",
                                 });
-                            }, 12e4)),
+                            }, 864e5)),
                             (l = new $l(Nl.k7, {
                               headers: o.headers,
                               payload: o.body,
