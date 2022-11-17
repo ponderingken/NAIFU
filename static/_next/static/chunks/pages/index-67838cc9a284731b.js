@@ -31804,7 +31804,7 @@
       }
       function Y_() {
         var e = (0, u.Z)([
-          "\n    width: 28px;\n    height: 28px;\n    background-color: ",
+          "\n    min-width: 28px;\n    padding: 0 6px;\n    height: 28px;\n    background-color: ",
           ";\n    border-radius: 3px;\n    font-weight: 700;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    position: absolute;\n    bottom: 5px;\n    right: 5px;\n",
         ]);
         return (
