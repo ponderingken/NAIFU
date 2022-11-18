@@ -90,6 +90,8 @@ def init_config_model():
         config.amp = True
     elif config.amp == "0":
         config.amp = False
+    config.lowvram = vram.lowvram
+    config.medvram = vram.medvram
 
     is_dev = ""
     environment = "production"
