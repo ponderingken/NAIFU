@@ -1,8 +1,6 @@
 @echo off
 
 :: Advanced Settings
-if not defined PYTHON (set PYTHON=python)
-if not defined VENV_DIR (set VENV_DIR=venv)
 set ERROR_REPORTING=FALSE
 set DTYPE=float32
 set CLIP_CONTEXTS=3
