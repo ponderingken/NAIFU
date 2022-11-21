@@ -24,7 +24,7 @@ set VAE_PATH=models/animevae.pt
 
 :: Save type [default] or [full]
 set SAVE_FILES=1
-set SAVE_TYPE=default
+set SAVE_TYPE=full
 :: set SAVE_PATH=
 
 :: If VRAM is smaller than 8GB, enable one or the other for LOWVRAM or MEDVRAM.
