@@ -35,6 +35,14 @@ print(f"Starting Hydra Node HTTP TOKEN={TOKEN}")
 
 #Initialize model and config
 model, config, model_hash = init_config_model()
+if config.savefiles:
+    if config.savetype == "full":
+        print("\x1b[32mImages are stored in", config.savepath, "\x1b[0m")
+    else:
+        print("\x1b[33mWarning: The generated image will be saved, but not the image data.")
+        print("Images are stored in", config.savepath, "\x1b[0m")
+else:
+    print("\x1b[31mWarning: Generated images will not be saved.\x1b[0m")
 try:
     embedmodel = EmbedderModel()
 except Exception as e:
