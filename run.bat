@@ -12,7 +12,7 @@ set PENULTIMATE=1
 set PYTHONDONTWRITEBYTECODE=1
 
 :: Python Path
-set PYTHON="python"
+set PYTHON=python
 
 :: Model Paths
 set MODEL_PATH=models/animefull-final-pruned
