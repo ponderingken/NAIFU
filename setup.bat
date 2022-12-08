@@ -84,9 +84,26 @@ del /q "%~dp0tmp\replaced"
 
 rd /s /q "%~dp0tmp"
 
-echo [32mAll setup are complete.
-echo You can run it from the run.bat file in naifu.
+cls
+
+echo [32m
+echo    .__   __.      ___       __   _______  __    __
+echo    ^|  \ ^|  ^|     /   \     ^|  ^| ^|   ____^|^|  ^|  ^|  ^|
+echo    ^|   \^|  ^|    /  ^^  \    ^|  ^| ^|  ^|__   ^|  ^|  ^|  ^|
+echo    ^|  . `  ^|   /  /_\  \   ^|  ^| ^|   __^|  ^|  ^|  ^|  ^|
+echo    ^|  ^|\   ^|  /  _____  \  ^|  ^| ^|  ^|     ^|  `--'  ^|
+echo    ^|__^| \__^| /__/     \__\ ^|__^| ^|__^|      \______/
+echo.
+echo All setups have been completed
+echo.
+echo Please note that this content is based on leaked electronic data and we are not responsible for any disadvantages that may occur as a result of the actual construction and execution of this content.
+echo.
+echo Therefore, all further execution is at your own risk.
+echo.
+echo It can be executed from the ^"run.bat^" file of NAIFU.
+echo.
 echo ^(Done^)[0m
+echo.
 
 :EXIT
 pause
