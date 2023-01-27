@@ -68,7 +68,7 @@ copy /y "%~dp0tmp\replaced" "%~dp0python\python310._pth" > nul
 del /q "%~dp0tmp\replaced"
 
 echo Installing modules required to run Naifu
-"%~dp0python\Scripts\pip.exe" install torch torchvision torchaudio dotmap fastapi uvicorn omegaconf transformers sentence_transformers faiss-cpu einops pytorch_lightning==1.7.7 ftfy scikit-image torchdiffeq jsonmerge --extra-index-url https://download.pytorch.org/whl/cu116 > nul 2>&1
+"%~dp0python\Scripts\pip.exe" install -r requirements.txt > nul 2>&1
 
 echo Installing the naifu
 move "%~dp0tmp\naifu\models" "%~dp0models" > nul
