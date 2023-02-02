@@ -5,8 +5,6 @@ set RUNTIME_URI=https://aka.ms/vs/17/release/vc_redist.x64.exe
 set ARIA2_URI=https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0-win-64bit-build1.zip
 set PYTHON_URI=https://www.python.org/ftp/python/3.10.8/python-3.10.8-embed-amd64.zip
 set PYTHIN_PIP_URI=https://bootstrap.pypa.io/get-pip.py
-@REM set ANYTHINGV3_CKPT_URI=https://huggingface.co/Linaqruf/anything-v3.0/resolve/main/Anything-V3.0.ckpt
-@REM set ANYTHINGV3_PT_URI=https://huggingface.co/Linaqruf/anything-v3.0/resolve/main/Anything-V3.0.vae.pt
 set NAIFU_MAGNET="magnet:?xt=urn:btih:4a4b483d4a5840b6e1fee6b0ca1582c979434e4d&dn=naifu&tr=udp%%3a%%2f%%2ftracker.opentrackr.org%%3a1337%%2fannounce"
 
 set MVR_HKLM86=HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
@@ -46,10 +44,6 @@ for /f "usebackq delims=" %%A in (`where /r "%~dp0tmp\aria2" *.exe`) do set ARIA
 move %ARIAPATH% "%~dp0tmp\" > nul
 rd /s /q "%~dp0tmp\aria2"
 
-@REM echo Downloading the Anything-V3
-@REM "%~dp0tmp\aria2c.exe" --dir="%~dp0tmp" --out="model.ckpt"  %ANYTHINGV3_CKPT_URI%
-@REM "%~dp0tmp\aria2c.exe" --dir="%~dp0tmp" --out="Anything-V3.0.vae.pt"  %ANYTHINGV3_PT_URI%
-
 echo Downloading the Naifu
 "%~dp0tmp\aria2c.exe" --seed-time=0 --dir="%~dp0tmp" %NAIFU_MAGNET%
 del "%~dp0tmp\aria2c.exe"
@@ -73,10 +67,6 @@ echo Installing modules required to run Naifu
 echo Installing the naifu
 move "%~dp0tmp\naifu\models" "%~dp0models" > nul
 rd /s /q "%~dp0tmp\naifu"
-@REM mkdir "%~dp0models\Anything-V3.0"
-@REM move "%~dp0tmp\model.ckpt" "%~dp0models\Anything-V3.0\" > nul
-@REM move "%~dp0tmp\Anything-V3.0.vae.pt" "%~dp0models\" > nul
-@REM copy "%~dp0models\animefull-final-pruned\config.yaml" "%~dp0models\Anything-V3.0\config.yaml" > nul
 
 powershell -Command "[System.IO.File]::WriteAllLines(('%~dp0tmp\replaced'), @((gc '%~dp0run.bat').Replace('set PYTHON=python', 'set PYTHON=python\python.exe')), (New-Object 'System.Text.UTF8Encoding' -ArgumentList @($false)))" > nul
 copy /y "%~dp0tmp\replaced" "%~dp0run.bat" > nul
