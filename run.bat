@@ -15,10 +15,10 @@ set PYTHONDONTWRITEBYTECODE=1
 set PYTHON=python
 
 :: Model Paths
-set MODEL_PATH=models/animefull-final-pruned
-set VAE_PATH=models/animevae.pt
 ::set MODULE_PATH=models/modules
 ::set PRIOR_PATH=models/vector_adjust_v2.pt
+set MODEL_PATH=models/animefull-final-pruned
+set VAE_PATH=models/animevae.pt
 
 :: Save type [default] or [full]
 set SAVE_FILES=1
