@@ -17,8 +17,6 @@ set PYTHON=python
 :: Model Paths
 set MODEL_PATH=models/animefull-final-pruned
 set VAE_PATH=models/animevae.pt
-:: set MODEL_PATH=models/Anything-V3.0
-:: set VAE_PATH=models/Anything-V3.0.vae.pt
 ::set MODULE_PATH=models/modules
 ::set PRIOR_PATH=models/vector_adjust_v2.pt
 
