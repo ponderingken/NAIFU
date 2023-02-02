@@ -14,6 +14,10 @@ set PYTHONDONTWRITEBYTECODE=1
 :: Python Path
 set PYTHON=python
 
+:: Tags Path
+::set TAGS_PATH=models/tags.json
+::set TAGS_PATH_GEN=models/tags.index
+
 :: Model Paths
 ::set MODULE_PATH=models/modules
 ::set PRIOR_PATH=models/vector_adjust_v2.pt

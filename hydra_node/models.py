@@ -731,8 +731,8 @@ class EmbedderModel(nn.Module):
         nn.Module.__init__(self)
         from sentence_transformers import SentenceTransformer
         self.model = SentenceTransformer('./models/sentence-transformers_all-MiniLM-L6-v2').cuda()
-        self.tags = [tuple(x) for x in json.load(open("models/tags.json"))]
-        self.knn = self.load_knn("models/tags.index")
+        self.tags = [tuple(x) for x in json.load(open(config.tags))]
+        self.knn = self.load_knn(config.tagsgen)
         print("Loaded tag suggestion model using phrase embeddings")
 
     def load_knn(self, filename):

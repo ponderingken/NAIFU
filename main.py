@@ -44,7 +44,7 @@ if config.savefiles:
 else:
     print("\x1b[31mWarning: Generated images will not be saved.\x1b[0m")
 try:
-    embedmodel = EmbedderModel()
+    embedmodel = EmbedderModel(config)
 except Exception as e:
     print("couldn't load embed model, suggestions won't work:", e)
     embedmodel = False

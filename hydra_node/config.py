@@ -80,6 +80,8 @@ def load_module(path, device):
 
 def init_config_model():
     config = DotMap()
+    config.tags = os.getenv("TAGS_PATH","models/tags.json")
+    config.tagsgen = os.getenv("TAGS_PATH_GEN","models/tags.index")
     config.savetype = os.getenv("SAVE_TYPE", "default")
     config.savepath = os.getenv("SAVE_PATH", "images")
     config.savefiles = os.getenv("SAVE_FILES", False)
