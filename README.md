@@ -29,7 +29,7 @@ NAIFU-main
 5. Add the `vae.pt` file, if any, to any location.
 6. Edit the following section in the `run.bat` file. Enter the name of the directory you created in `MODEL_PATH` and the path to the `VAE` file you added in `VAE_PAT`. (Relative paths)
 
-```
+```bat
 set MODEL_PATH=
 set VAE_PATH=
 ```
@@ -38,10 +38,31 @@ set VAE_PATH=
 ### Low GPU performance or small VRAM
 
 In `run.bat`, enable either of the following
-* 
-```
+
+* Generated results are slightly inferior
+
+```bat
 :: set LOWVRAM=1
 set MEDVRAM=1
 ```
 
+### Change the destination
 
+Uncomment the following and enter the destination path
+
+```bat
+:: set SAVE_PATH=
+```
+
+### Change Save Type
+
+The following two types of save types are available
+
+full : Save all generated image information
+default : save only images
+
+Change the following variables
+
+```bat
+set SAVE_TYPE=full
+```
