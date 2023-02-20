@@ -4,6 +4,10 @@ Naifu is a Diffusion Web UI using Leakd Novel AI code.
 Another model can be loaded, but a CKPT file is required.
 Since certain parameters have been adjusted, even when an existing model is loaded, the result is clean.
 
+This is the Discord community for this.
+
+https://discord.gg/SY9bKxcn4K
+
 ## How to use
 
 ### Setup 
