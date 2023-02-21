@@ -19,6 +19,8 @@
                 "VAE_PATH":"models/animevae.pt",
                 "PENULTIMATE":"1",
                 "PYTHONDONTWRITEBYTECODE":"1",
+                "SAVE_FILES":"1",
+                "SAVE_TYPE":"full",
             },
             "args": [
                 "--host",
