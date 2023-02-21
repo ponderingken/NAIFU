@@ -87,8 +87,8 @@ def sanitize_stable_diffusion(request, config):
     if request.dynamic_threshold is not None and request.dynamic_threshold < 0:
         return False, "dynamic_threshold shouldn't be negative"
 
-    if request.width * request.height >= 1024*1025:
-        return False, "width and height must be less than 1024*1025"
+    # if request.width * request.height >= 1024*1025:
+    #     return False, "width and height must be less than 1024*1025"
 
     if request.strength < 0.0 or request.strength >= 1.0:
         return False, "strength should be more than 0.0 and less than 1.0"
