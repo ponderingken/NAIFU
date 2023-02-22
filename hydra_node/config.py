@@ -135,6 +135,7 @@ def init_config_model():
     logger.info(f"MODEL: {config.model_name}")
 
     # Resolve where we get our model and data from.
+    config.config_path = os.getenv('CONFIG_PATH', None)
     config.model_path = os.getenv('MODEL_PATH', None)
     config.enable_ema = os.getenv('ENABLE_EMA', "1")
     config.basedformer = os.getenv('BASEDFORMER', "0")
@@ -172,12 +173,7 @@ def init_config_model():
         sys.exit(4)
 
     if config.model_name == "stable-diffusion":
-        folder = Path(config.model_path)
-        if (folder / "pruned.ckpt").is_file():
-            model_path = folder / "pruned.ckpt"
-        else:
-            model_path = folder / "model.ckpt"
-        model_hash = crc32(model_path)
+        model_hash = crc32(Path(config.model_path))
 
         #Load Modules
         if config.module_path is not None:

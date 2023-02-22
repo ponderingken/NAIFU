@@ -197,16 +197,9 @@ class StableDiffusionModel(nn.Module):
         nn.Module.__init__(self)
         self.config = config
         self.premodules = None
-        if Path(self.config.model_path).is_dir():
-            config.logger.info(f"Loading model from folder {self.config.model_path}")
-            model, model_config = self.from_folder(config.model_path)
-
-        elif Path(self.config.model_path).is_file():
-            config.logger.info(f"Loading model from file {self.config.model_path}")
-            model, model_config = self.from_file(config.model_path)
-
-        else:
-            raise Exception("Invalid model path!")
+        
+        config.logger.info(f"Loading model from {self.config.model_path}")
+        model, model_config = self.from_folder(config)
 
         if config.dtype == "float16":
             typex = torch.float16
@@ -299,14 +292,9 @@ class StableDiffusionModel(nn.Module):
         }
         return DotMap(dict_config)
 
-    def from_folder(self, folder):
-        folder = Path(folder)
-        model_config = OmegaConf.load(folder / "config.yaml")
-        if (folder / "pruned.ckpt").is_file():
-            model_path = folder / "pruned.ckpt"
-        else:
-            model_path = folder / "model.ckpt"
-        model = self.load_model_from_config(model_config, model_path)
+    def from_folder(self, config):
+        model_config = OmegaConf.load(Path(config.config_path))
+        model = self.load_model_from_config(model_config, Path(config.model_path))
         return model, model_config
 
     def from_path(self, file):

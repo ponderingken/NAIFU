@@ -21,7 +21,8 @@ set PYTHON=python
 :: Model Paths
 ::set MODULE_PATH=models/modules
 ::set PRIOR_PATH=models/vector_adjust_v2.pt
-set MODEL_PATH=models/animefull-final-pruned
+set CONFIG_PATH=models/animefull-final-pruned/config.yaml
+set MODEL_PATH=models/animefull-final-pruned/model.ckpt
 set VAE_PATH=models/animevae.pt
 
 :: Save type [default] or [full]
