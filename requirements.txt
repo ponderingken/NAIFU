@@ -1,12 +1,12 @@
 --extra-index-url https://download.pytorch.org/whl/cu116
-torch
+torch==1.13.1
 torchvision
 torchaudio
 dotmap
 fastapi
 uvicorn
 omegaconf
-transformers
+transformers==4.26.1
 sentence_transformers
 faiss-cpu
 einops
