@@ -55,14 +55,14 @@ del "%~dp0tmp\python.zip"
 
 echo Preparing for pip
 powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%PYTHIN_PIP_URI%','%~dp0tmp\get-pip.py')"
-"%~dp0python\python.exe" "%~dp0tmp\get-pip.py" > nul 2>&1
+"%~dp0python\python.exe" "%~dp0tmp\get-pip.py" --no-warn-script-location
 del "%~dp0tmp\get-pip.py"
 powershell -Command "[System.IO.File]::WriteAllLines(('%~dp0tmp\replaced'), @((gc '%~dp0python\python310._pth').Replace('#import site', 'import site')), (New-Object 'System.Text.UTF8Encoding' -ArgumentList @($false)))" > nul
 copy /y "%~dp0tmp\replaced" "%~dp0python\python310._pth" > nul
 del /q "%~dp0tmp\replaced"
 
 echo Installing modules required to run Naifu
-"%~dp0python\Scripts\pip.exe" install -r requirements.txt > nul 2>&1
+"%~dp0python\Scripts\pip.exe" install -r requirements.txt --no-warn-script-location
 
 echo Installing the naifu
 move "%~dp0tmp\naifu\models" "%~dp0models" > nul
