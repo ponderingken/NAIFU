@@ -74,8 +74,6 @@ del /q "%~dp0tmp\replaced"
 
 rd /s /q "%~dp0tmp"
 
-cls
-
 echo [32m
 echo    .__   __.      ___       __   _______  __    __
 echo    ^|  \ ^|  ^|     /   \     ^|  ^| ^|   ____^|^|  ^|  ^|  ^|
