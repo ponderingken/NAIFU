@@ -62,6 +62,7 @@ copy /y "%~dp0tmp\replaced" "%~dp0python\python310._pth" > nul
 del /q "%~dp0tmp\replaced"
 
 echo Installing modules required to run Naifu
+"%~dp0python\Scripts\pip.exe" cache purge
 "%~dp0python\Scripts\pip.exe" install -r requirements.txt --no-warn-script-location
 
 echo Installing the naifu

@@ -1,7 +1,8 @@
 --extra-index-url https://download.pytorch.org/whl/cu116
-torch==1.12.1
-torchvision==0.13.1
-torchaudio==0.12.1
+torch==1.13.1
+torchvision==0.14.1
+torchaudio==0.13.1
+torchmetrics==0.11.4
 dotmap
 fastapi
 uvicorn
