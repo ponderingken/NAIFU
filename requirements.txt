@@ -16,3 +16,5 @@ ftfy
 scikit-image
 torchdiffeq
 jsonmerge
+torchdata==0.5.1
+torchtext==0.14.1
