@@ -23,7 +23,7 @@ import signal
 import base64
 import traceback
 import threading
-from PIL import Image
+from PIL import Image, PngImagePlugin
 from PIL.PngImagePlugin import PngInfo
 import json
 import torch
@@ -152,11 +152,44 @@ def saveimage(image, request):
 
     if config.savetype == "default":
         saveimagedefault(image, request)
+    elif config.savetype == "merged":
+        saveimagefull_merged(image, request)
     elif config.savetype == "full":
         saveimagefull(image, request)
     else:
         saveimagedefault(image, request)
         print("ERROR : The specified save type value does not exist. Saving to default destination.")
+
+def saveimagefull_merged(image, request):
+    def save_image_with_metadata(image: Image.Image, save_path: str, metadata: dict):
+        img_info = image.info
+        img_info.update(metadata)
+        info = PngImagePlugin.PngInfo()
+        for k, v in img_info.items():
+            info.add_itxt(k, str(v))
+        image.save(save_path, pnginfo=info)
+
+    imgimg = Image.open(io.BytesIO(image))
+    id = str(int(time.time() * 10 ** 6))
+    data_i = request.image
+    save_path = os.path.join(config.savepath, generate_unique_filepath(id, 'png'))
+    save_path_i = os.path.join(config.savepath, generate_unique_filepath(id + '_i', 'png'))
+    
+    data = '[request data]\n'
+    for key in request:
+        if key == "image" and data_i != None:
+            data += str(key) + "=\'" + os.path.basename(save_path_i) + "\'\n"
+        else:
+            data += str(key) + "=\'" + str(request[key]) + "\'\n"
+
+    data += '\n[config data]\n'
+    for key in config:
+        if key != "model" and key != "logger":
+            data += str(key) + "=\'" + str(config[key]) + "\'\n"
+
+    save_image_with_metadata(imgimg, save_path, {"data": data})
+    if data_i != None: data_i.save(save_path_i, quality=100, format="PNG")
+
 
 def saveimagefull(image, request):
     def save(path, mode, data, txt):
