@@ -137,6 +137,15 @@ class GenerationOutput(BaseModel):
 class ErrorOutput(BaseModel):
     error: str
 
+def generate_unique_filepath(base_path, extension):
+    iteration = 0
+    suffix = '.' + extension
+    new_path = f'{base_path}{suffix}'
+    while os.path.exists(new_path):
+        iteration += 1
+        new_path = f'{base_path}-{iteration}{suffix}'
+    return new_path
+
 def saveimage(image, request):
     torch.cuda.empty_cache
     os.makedirs(config.savepath, exist_ok=True)
@@ -150,15 +159,6 @@ def saveimage(image, request):
         print("ERROR : The specified save type value does not exist. Saving to default destination.")
 
 def saveimagefull(image, request):
-    def dup(path, ext):
-        for n in range(1000000):
-            suff = '.' + ext
-            if n:
-                suff = f'-{n}.' + ext
-            if not os.path.exists(path + suff):
-                break
-        return path + suff
-
     def save(path, mode, data, txt):
         try:
             with open(path, mode) as f:
@@ -174,9 +174,9 @@ def saveimagefull(image, request):
 
     id = str(hex(int(time.time() * 10 ** 6))).replace('0x', '').upper()
 
-    imagefilepath = dup(os.path.join(imagespath, id), 'png')
-    datafilepath = dup(os.path.join(datapath, id), 'txt')
-    dataimagepath = dup(os.path.join(datapath, id + '_i'), 'png')
+    imagefilepath = generate_unique_filepath(os.path.join(imagespath, id), 'png')
+    datafilepath = generate_unique_filepath(os.path.join(datapath, id), 'txt')
+    dataimagepath = generate_unique_filepath(os.path.join(datapath, id + '_i'), 'png')
 
     data_i = request.image
 
