@@ -25,9 +25,9 @@ set CONFIG_PATH=models/animefull-final-pruned/config.yaml
 set MODEL_PATH=models/animefull-final-pruned/model.ckpt
 set VAE_PATH=models/animevae.pt
 
-:: Save type [default] or [full]
+:: Save type [default] or [full] or [metadata]
 set SAVE_FILES=1
-set SAVE_TYPE=full
+set SAVE_TYPE=metadata
 :: set SAVE_PATH=
 
 :: If VRAM is smaller than 8GB, enable one or the other for LOWVRAM or MEDVRAM.

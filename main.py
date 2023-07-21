@@ -152,15 +152,15 @@ def saveimage(image, request):
 
     if config.savetype == "default":
         saveimagedefault(image, request)
-    elif config.savetype == "merged":
-        saveimagefull_merged(image, request)
+    elif config.savetype == "metadata":
+        saveimagefull_metadata(image, request)
     elif config.savetype == "full":
         saveimagefull(image, request)
     else:
         saveimagedefault(image, request)
         print("ERROR : The specified save type value does not exist. Saving to default destination.")
 
-def saveimagefull_merged(image, request):
+def saveimagefull_metadata(image, request):
     def save_image_with_metadata(image: Image.Image, save_path: str, metadata: dict):
         img_info = image.info
         img_info.update(metadata)
